@@ -1,11 +1,11 @@
 <div>
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="page-title">Members</h1>
-        <button wire:click="create" type="button" class="btn btn-primary">Register member</button>
+        <button wire:click="create" type="button" class="btn btn-primary"><x-icon name="user-plus" /> Register member</button>
     </div>
 
     <div class="mt-4">
-        <x-flash :notice="$notice" :failure="$failure" />
+        <x-flash :notice="$notice" :failure="$failure" :version="$flashVersion" />
     </div>
 
     @if ($showForm)
@@ -36,8 +36,8 @@
             </div>
 
             <div class="mt-5 flex gap-2">
-                <button type="submit" class="btn btn-primary">Save member</button>
-                <button wire:click="cancel" type="button" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-dark"><x-icon name="check" /> Save member</button>
+                <button wire:click="cancel" type="button" class="btn btn-secondary"><x-icon name="x" /> Cancel</button>
             </div>
         </form>
     @endif
@@ -68,14 +68,14 @@
                         <td>{{ $member->active_loans_count }}</td>
                         <td>
                             @if ($member->unpaid_fines_sum_amount > 0)
-                                <span class="text-red-700">KES {{ number_format($member->unpaid_fines_sum_amount) }}</span>
+                                <span class="text-rose-700">KES {{ number_format($member->unpaid_fines_sum_amount) }}</span>
                             @else
                                 —
                             @endif
                         </td>
                         <td class="text-right whitespace-nowrap">
-                            <a href="{{ route('librarian.circulation', ['member' => $member->admission_number ?? $member->email]) }}" class="btn btn-secondary btn-sm">Issue book</a>
-                            <button wire:click="edit({{ $member->id }})" type="button" class="btn btn-secondary btn-sm">Edit</button>
+                            <a href="{{ route('librarian.circulation', ['member' => $member->admission_number ?? $member->email]) }}" class="btn btn-primary btn-sm"><x-icon name="arrow-up-tray" class="size-4" /> Issue book</a>
+                            <button wire:click="edit({{ $member->id }})" type="button" class="btn btn-secondary btn-sm"><x-icon name="pencil" class="size-4" /> Edit</button>
                         </td>
                     </tr>
                 @empty

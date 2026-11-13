@@ -4,8 +4,11 @@
     <div class="mt-4 grid gap-3 sm:grid-cols-[1fr_14rem_auto] sm:items-center">
         <div>
             <label for="search" class="sr-only">Search by title, author or ISBN</label>
-            <input wire:model.live.debounce.300ms="search" id="search" type="search" class="input"
-                   placeholder="Search by title, author or ISBN">
+            <div class="relative">
+                <x-icon name="search" class="pointer-events-none absolute top-1/2 left-3.5 size-5 -translate-y-1/2 text-ink-400" />
+                <input wire:model.live.debounce.300ms="search" id="search" type="search" class="input pl-11"
+                       placeholder="Search by title, author or ISBN">
+            </div>
         </div>
         <div>
             <label for="category" class="sr-only">Category</label>
@@ -17,13 +20,13 @@
             </select>
         </div>
         <label class="flex items-center gap-2 text-sm">
-            <input wire:model.live="availableOnly" type="checkbox" class="rounded border-slate-300">
+            <input wire:model.live="availableOnly" type="checkbox" class="rounded border-ink-300">
             Available now
         </label>
     </div>
 
     <div class="mt-4">
-        <x-flash :notice="$notice" :failure="$failure" />
+        <x-flash :notice="$notice" :failure="$failure" :version="$flashVersion" />
     </div>
 
     <div class="table-wrap">
@@ -43,7 +46,7 @@
                     @php($available = $book->availableCopies())
                     <tr wire:key="book-{{ $book->id }}">
                         <td>
-                            <a href="{{ route('catalogue.show', $book) }}" class="font-medium text-indigo-700 hover:underline">{{ $book->title }}</a>
+                            <a href="{{ route('catalogue.show', $book) }}" class="link">{{ $book->title }}</a>
                         </td>
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->category?->name ?? '—' }}</td>
@@ -54,7 +57,7 @@
                             @else
                                 <span class="badge badge-amber">Borrowed</span>
                                 @if ($book->pending_reservations_count > 0)
-                                    <span class="ml-1 text-xs text-slate-500">{{ $book->pending_reservations_count }} waiting</span>
+                                    <span class="ml-1 text-xs text-ink-500">{{ $book->pending_reservations_count }} waiting</span>
                                 @endif
                             @endif
                         </td>
@@ -65,7 +68,7 @@
                                 <span class="badge badge-slate">Reserved by you</span>
                             @elseif ($available === 0)
                                 @can('reservations.create')
-                                    <button wire:click="reserve({{ $book->id }})" type="button" class="btn btn-primary btn-sm">Reserve</button>
+                                    <button wire:click="reserve({{ $book->id }})" type="button" class="btn btn-primary btn-sm"><x-icon name="bookmark" class="size-4" /> Reserve</button>
                                 @endcan
                             @endif
                         </td>

@@ -6,11 +6,15 @@
     <title>{{ $title ?? config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-10 text-slate-900 antialiased">
+<body class="flex min-h-screen items-center justify-center bg-ink-900 bg-[radial-gradient(circle_at_top,_rgb(214_146_94/0.25),_transparent_60%)] px-4 py-10 text-ink-900 antialiased">
     <div class="w-full max-w-md">
-        <h1 class="mb-6 text-center text-2xl font-semibold text-indigo-700">{{ config('app.name') }}</h1>
+        <div class="mb-6 flex flex-col items-center gap-3 text-white">
+            <span class="flex size-16 items-center justify-center rounded-2xl bg-copper-500 text-ink-950 shadow-lg"><x-icon name="book-open" class="size-9" /></span>
+            <h1 class="text-3xl font-extrabold tracking-tight">{{ config('app.name') }}</h1>
+            <p class="text-sm text-ink-200">Borrow, reserve and track your books in one place.</p>
+        </div>
 
-        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="rounded-3xl border-t-8 border-copper-500 bg-white p-7 shadow-2xl">
             {{ $slot }}
         </div>
     </div>

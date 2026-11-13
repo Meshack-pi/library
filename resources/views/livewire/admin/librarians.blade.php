@@ -1,11 +1,11 @@
 <div>
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="page-title">Librarians</h1>
-        <button wire:click="create" type="button" class="btn btn-primary">Add librarian</button>
+        <button wire:click="create" type="button" class="btn btn-primary"><x-icon name="user-plus" /> Add librarian</button>
     </div>
 
     <div class="mt-4">
-        <x-flash :notice="$notice" :failure="$failure" />
+        <x-flash :notice="$notice" :failure="$failure" :version="$flashVersion" />
     </div>
 
     @if ($showForm)
@@ -31,8 +31,8 @@
             </div>
 
             <div class="mt-5 flex gap-2">
-                <button type="submit" class="btn btn-primary">Save librarian</button>
-                <button wire:click="cancel" type="button" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-dark"><x-icon name="check" /> Save librarian</button>
+                <button wire:click="cancel" type="button" class="btn btn-secondary"><x-icon name="x" /> Cancel</button>
             </div>
         </form>
     @endif
@@ -54,9 +54,9 @@
                         <td>{{ $librarian->email }}</td>
                         <td>{{ $librarian->created_at->format('j M Y') }}</td>
                         <td class="text-right whitespace-nowrap">
-                            <button wire:click="edit({{ $librarian->id }})" type="button" class="btn btn-secondary btn-sm">Edit</button>
+                            <button wire:click="edit({{ $librarian->id }})" type="button" class="btn btn-secondary btn-sm"><x-icon name="pencil" class="size-4" /> Edit</button>
                             <button wire:click="revoke({{ $librarian->id }})" wire:confirm="Remove librarian access for {{ $librarian->name }}? Their account becomes an ordinary member."
-                                    type="button" class="btn btn-danger btn-sm">Remove access</button>
+                                    type="button" class="btn btn-danger btn-sm"><x-icon name="trash" class="size-4" /> Remove access</button>
                         </td>
                     </tr>
                 @empty

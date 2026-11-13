@@ -1,15 +1,15 @@
 <div>
-    <a href="{{ route('catalogue.index') }}" class="text-sm text-indigo-700 hover:underline">&larr; Back to catalogue</a>
+    <a href="{{ route('catalogue.index') }}" class="text-sm link">&larr; Back to catalogue</a>
 
     <div class="mt-3">
-        <x-flash :notice="$notice" :failure="$failure" />
+        <x-flash :notice="$notice" :failure="$failure" :version="$flashVersion" />
     </div>
 
     <div class="card">
         <div class="flex flex-wrap items-start justify-between gap-4">
             <div>
                 <h1 class="page-title">{{ $book->title }}</h1>
-                <p class="mt-1 text-slate-600">by {{ $book->author }}</p>
+                <p class="mt-1 text-ink-600">by {{ $book->author }}</p>
             </div>
 
             <div class="flex items-center gap-3">
@@ -25,7 +25,7 @@
                     <span class="badge badge-slate">Reserved by you</span>
                 @elseif ($available === 0)
                     @can('reservations.create')
-                        <button wire:click="reserve" type="button" class="btn btn-primary">Reserve</button>
+                        <button wire:click="reserve" type="button" class="btn btn-primary"><x-icon name="bookmark" /> Reserve</button>
                     @endcan
                 @endif
             </div>
@@ -61,7 +61,7 @@
         </dl>
 
         @if ($available > 0)
-            <p class="mt-6 text-sm text-slate-600">To borrow this book, take it from shelf {{ $book->shelf_location ?? 'listed at the desk' }} to the librarian's desk.</p>
+            <p class="mt-6 text-sm text-ink-600">To borrow this book, take it from shelf {{ $book->shelf_location ?? 'listed at the desk' }} to the librarian's desk.</p>
         @endif
     </div>
 </div>

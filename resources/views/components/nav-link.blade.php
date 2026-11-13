@@ -1,3 +1,8 @@
-@props(['route'])
+@props(['route', 'icon'])
 
-<a href="{{ route($route) }}" @class(['nav-link', 'nav-link-active' => request()->routeIs($route, $route.'.*')])>{{ $slot }}</a>
+@php($isActive = request()->routeIs($route, $route.'.*'))
+
+<a href="{{ route($route) }}" @if ($isActive) aria-current="page" @endif @class(['nav-link', 'nav-link-active' => $isActive])>
+    <span class="nav-link-icon"><x-icon :name="$icon" /></span>
+    <span>{{ $slot }}</span>
+</a>

@@ -1,11 +1,11 @@
 <div>
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="page-title">Books</h1>
-        <button wire:click="create" type="button" class="btn btn-primary">Add book</button>
+        <button wire:click="create" type="button" class="btn btn-primary"><x-icon name="plus" /> Add book</button>
     </div>
 
     <div class="mt-4">
-        <x-flash :notice="$notice" :failure="$failure" />
+        <x-flash :notice="$notice" :failure="$failure" :version="$flashVersion" />
     </div>
 
     @if ($showForm)
@@ -46,7 +46,7 @@
                     <div class="mt-2 flex gap-2">
                         <label for="newCategory" class="sr-only">New category name</label>
                         <input wire:model="newCategory" wire:keydown.enter.prevent="addCategory" id="newCategory" type="text" class="input" placeholder="Or add a new category">
-                        <button wire:click="addCategory" type="button" class="btn btn-secondary">Add</button>
+                        <button wire:click="addCategory" type="button" class="btn btn-secondary"><x-icon name="tag" /> Add</button>
                     </div>
                     @error('newCategory') <p class="field-error">{{ $message }}</p> @enderror
                 </div>
@@ -58,8 +58,8 @@
             </div>
 
             <div class="mt-5 flex gap-2">
-                <button type="submit" class="btn btn-primary">Save book</button>
-                <button wire:click="cancel" type="button" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-dark"><x-icon name="check" /> Save book</button>
+                <button wire:click="cancel" type="button" class="btn btn-secondary"><x-icon name="x" /> Cancel</button>
             </div>
         </form>
     @endif
@@ -86,7 +86,7 @@
             <tbody>
                 @forelse ($books as $book)
                     <tr wire:key="book-{{ $book->id }}">
-                        <td class="text-slate-500">{{ $book->id }}</td>
+                        <td class="text-ink-500">{{ $book->id }}</td>
                         <td class="font-medium">{{ $book->title }}</td>
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->isbn }}</td>
@@ -94,9 +94,9 @@
                         <td>{{ $book->shelf_location ?? '—' }}</td>
                         <td>{{ $book->availableCopies() }} of {{ $book->total_copies }}</td>
                         <td class="text-right whitespace-nowrap">
-                            <button wire:click="edit({{ $book->id }})" type="button" class="btn btn-secondary btn-sm">Edit</button>
+                            <button wire:click="edit({{ $book->id }})" type="button" class="btn btn-secondary btn-sm"><x-icon name="pencil" class="size-4" /> Edit</button>
                             <button wire:click="delete({{ $book->id }})" wire:confirm="Remove &quot;{{ $book->title }}&quot; from the catalogue?"
-                                    type="button" class="btn btn-danger btn-sm">Remove</button>
+                                    type="button" class="btn btn-danger btn-sm"><x-icon name="trash" class="size-4" /> Remove</button>
                         </td>
                     </tr>
                 @empty
